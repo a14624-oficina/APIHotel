@@ -1,14 +1,21 @@
 from flask import Flask
 from flask_restful import Resource, Api, reqparse
-from resource.hotel import Hoteis, Hotel 
+from resources.hotel import Hoteis, Hotel 
+from con_sql_alchemy import bd 
 
 app =Flask(__name__)
 api = Api(app)
 
+#configurações 
+app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///hoteis.db"
+app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
 
 api.add_resource(Hoteis,"/hoteis")
 api.add_resource(Hotel,"/hoteis/<string:hotel_id>")
 
 if __name__ == "__main__":
+    bd.init_app(app)
+    with app.app_context():
+        bd.create_all() #Cria todas as tabelas defininas no modelo do sqlalchemy
     app.run(debug=True)
