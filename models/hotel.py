@@ -8,7 +8,7 @@ class HotelModel(bd.Model):
     diaria = bd.Column(bd.Float(precision=2))
     cidade = bd.Column(bd.String(80))
 
-    def __int__(self,hotel_id,nome,estrelas,diaria,cidade):
+    def __init__(self,hotel_id,nome,estrelas,diaria,cidade):
         self.hotel_id = hotel_id
         self.nome = nome
         self.estrelas = estrelas
@@ -34,4 +34,14 @@ class HotelModel(bd.Model):
     
     def save_hotel(self):
         bd.session.add(self)
+        bd.session.commit()
+
+    def update_hotel(self,nome_atulizados,diaria_atulizadas,cidade_atulizada,estrelas_atulizadas):
+        self.nome = nome_atulizados
+        self.diaria = diaria_atulizadas
+        self.cidade = cidade_atulizada
+        self.estrelas = estrelas_atulizadas
+
+    def delete_hotel(self):
+        bd.session.delete(self)
         bd.session.commit()
