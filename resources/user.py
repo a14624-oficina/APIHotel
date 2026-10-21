@@ -20,20 +20,18 @@ class User(Resource):
         return{"mensagem":"Hotel não encontrado "}, 404
 
 class UserRegistar(Resource):
-         argumentos = reqparse.RequestParser()
-         argumentos.add_argument("username", type=str, required=True, help="O username é obrigatorio")
-         argumentos.add_argument("password", type=float, required=True, help="A password é obrigatorio")
+    argumentos = reqparse.RequestParser()
+    argumentos.add_argument("username", type=str, required=True, help="O username é obrigatorio")
+    argumentos.add_argument("password", type=float, required=True, help="A password é obrigatorio")
     
     def post(self):
-     dados = UserRegistar.argumentos.parse_args()
-     if UserModel.find_user(dados["username"]):
-          return("mensagem:""Já existe um utilizador com este username"),400
-     novo_utilizador = UserModel(**dados)
-    try:
-        novo_utilizador.save_user()
-        return("mensagem:""Utilizador criado com sucesso"),201
-    except:
-        return("mensagem:""Erro interno ocorreu..."),500
-     
-
+        dados = UserRegistar.argumentos.parse_args()
+        if UserModel.find_user(dados["username"]):
+            return{"mensagem":"Já existe um utilizador com este username"}, 400
+        novo_utilizador = UserModel(**dados)
+        try:
+            novo_utilizador.save_user()
+            return{"mensagem":"Utilizador criado com sucesso"}, 201
+        except:
+            return{"mensagem":"Um erro interno do servidor aconteceu ..."}, 500 
      
