@@ -4,7 +4,7 @@ from models.user import UserModel
 class User(Resource):
 
     def get(self,username):
-        hotel = UserModel.find_hotel(username)
+        user = UserModel.find_hotel(username)
         if username is not None:
                 return User.json(), 200
         return {"mensagem":"Utilizador não foi encontrado"}
@@ -22,13 +22,13 @@ class User(Resource):
 class UserRegistar(Resource):
     argumentos = reqparse.RequestParser()
     argumentos.add_argument("username", type=str, required=True, help="O username é obrigatorio")
-    argumentos.add_argument("password", type=float, required=True, help="A password é obrigatorio")
+    argumentos.add_argument("password", type=str, required=True, help="A password é obrigatorio")
     
     def post(self):
         dados = UserRegistar.argumentos.parse_args()
         if UserModel.find_user(dados["username"]):
+            novo_utilizador = UserModel(**dados)
             return{"mensagem":"Já existe um utilizador com este username"}, 400
-        novo_utilizador = UserModel(**dados)
         try:
             novo_utilizador.save_user()
             return{"mensagem":"Utilizador criado com sucesso"}, 201

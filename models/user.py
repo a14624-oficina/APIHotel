@@ -2,7 +2,7 @@ from con_sql_alchemy import bd
 
 class UserModel(bd.Model):
     __tablename__ = "Utilizadores"
-    user_id = bd.Column(bd.String,primary_key=True)
+    user_id = bd.Column(bd.Integer,primary_key=True, autoincrement = True)
     username = bd.Column(bd.String(40))
     password = bd.Column(bd.String(40))
    

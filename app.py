@@ -2,8 +2,8 @@ from flask import Flask
 from flask_restful import Resource, Api, reqparse
 from resources.hotel import Hoteis, Hotel 
 from con_sql_alchemy import bd 
-from  resources.user import User, UserRegistar
-from con_sql_alchemy import bd 
+from resources.user import User, UserRegistar
+
 
 app =Flask(__name__)
 api = Api(app)
@@ -16,7 +16,7 @@ app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 api.add_resource(Hoteis,"/hoteis")
 api.add_resource(Hotel,"/hoteis/<string:hotel_id>")
 api.add_resource(User,"/users/<string:username>")
-api.add_resource(UserRegistar"/resgistar")
+api.add_resource(UserRegistar,"/registar")
 
 if __name__ == "__main__":
     bd.init_app(app)
