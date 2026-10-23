@@ -12,12 +12,10 @@ class UserModel(bd.Model):
        self.password = password
 
     def json(self):
-        return{
-        "user_id":self.user_id,
-        "username":self.username,
-  
-                
-            }
+        return {
+            "user_id":self.user_id,
+            "username":self.username    
+        }
     @classmethod
     def find_user(cls,username):
         user = cls.query.filter_by(username = username).first()
@@ -30,6 +28,6 @@ class UserModel(bd.Model):
         bd.session.add(self)
         bd.session.commit()
 
-    def delete_use(self):
+    def delete_user(self):
         bd.session.delete(self)
         bd.session.commit()
